@@ -1,0 +1,16 @@
+data_path: "./data/"
+train_file: "stack_overflow_questions_train.csv"
+valid_file: "stack_overflow_questions_valid.csv"
+test_file: "stack_overflow_questions_test.csv"
+
+model:
+  pretrained_model: "bert-base-uncased"
+  max_length: 128
+  num_labels: 3
+  batch_size: 16
+  learning_rate: 2e-5
+  epochs: 5
+
+output_dir: "./models/bert_finetuned/"
+device: "cuda"  # Change to "cpu" if no GPU
+

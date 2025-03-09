@@ -1,0 +1,71 @@
+Stack Overflow BERT Classifier
+
+
+This project fine-tunes BERT to classify Stack Overflow questions into three categories:
+
+HQ: High-quality questions without edits
+LQ EDIT: Low-quality questions with multiple edits but remain open
+LQ CLOSE: Low-quality questions that were closed without edits
+
+
+Project Structure
+
+stackoverflow_bert/
+
+│── data/ # Data files (train, valid, test CSVs)
+│── environment.sh # venv environment dependencies
+│── src/ # Source code for training and testing
+│ ├── dataset.py # Custom PyTorch dataset class
+│ ├── model.py # BERT model definition
+│ ├── train.py # Training script
+│ ├── test.py # Evaluation script
+│── config/ # Configuration files
+│ ├── config.yaml # Model training parameters
+│── models/ # Directory for saving trained models
+│── notebooks/ # Jupyter Notebook for running experiments
+│ ├── stackoverflow_finetuning.ipynb
+│── README.md # Project documentation
+
+
+Installation & Setup
+
+1. Create and Activate Conda Environment
+conda env create -f environment.yml
+conda activate stackoverflow_bert
+
+2. Download Dataset
+Place the dataset files (stack_overflow_questions_train.csv, stack_overflow_questions_valid.csv, stack_overflow_questions_test.csv) inside the data/ folder.
+
+3. Train the Model
+python src/train.py
+
+4. Test the Model
+python src/test.py
+
+
+Configuration (config/config.yaml)
+
+Modify the training parameters in config/config.yaml:
+
+model_name: "bert-base-uncased"
+max_length: 128
+batch_size: 16
+epochs: 5
+learning_rate: 2e-5
+
+Saving & Loading the Model
+
+After training, the fine-tuned model is saved in saved_models/:
+
+python src/train.py --save_model
+
+To load and test the saved model:
+
+python src/test.py --use_saved_model
+
+
+Author
+Tamali Banerjee
+banerjeetamali6@gmail.com
+GitHub: https://github.com/tamali6
+LinkedIn: https://linkedin.com/in/tamalibanerjee
