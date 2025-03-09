@@ -6,35 +6,10 @@ from torch.utils.data import DataLoader
 from transformers import BertTokenizer
 from dataset import StackOverflowDataset
 from model import BERTClassifier
+from src.util import load_config
 
-import torch
-from transformers import BertTokenizer
-from torch.utils.data import DataLoader
-import torch.optim as optim
-import torch.nn as nn
-from model import BERTClassifier
-from dataset import StackOverflowDataset
-
-
-try:
-    # Load config
-    print("Loading configuration...")
-    with open("./config/config.yaml", "r") as f:
-        config = yaml.safe_load(f)
-    print("Configuration loaded successfully.")
-
-except FileNotFoundError as e:
-    print(f"Error: Configuration file not found: {e}")
-    raise
-
-except yaml.YAMLError as e:
-    print(f"Error: YAML format error: {e}")
-    raise
-
-except Exception as e:
-    print(f"Unexpected error while loading the configuration: {e}")
-    raise
-
+# Load configuration
+config = load_config()
 
 
 try:

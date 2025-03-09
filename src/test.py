@@ -3,10 +3,10 @@ import yaml
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer, BertForSequenceClassification
 from dataset import StackOverflowDataset
+from src.util import load_config
 
-# Load config
-with open("../config/config.yaml", "r") as f:
-    config = yaml.safe_load(f)
+# Load configuration
+config = load_config()
 
 device = torch.device(config["device"])
 tokenizer = BertTokenizer.from_pretrained(config["output_dir"])
