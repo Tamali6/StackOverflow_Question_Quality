@@ -12,26 +12,24 @@ Project Structure
 
 stackoverflow_bert/
 
-│── data/ # Data files (train, valid, test CSVs)
-│── environment.sh # venv environment dependencies
-│── src/ # Source code for training and testing
-│ ├── dataset.py # Custom PyTorch dataset class
-│ ├── model.py # BERT model definition
-│ ├── train.py # Training script
-│ ├── test.py # Evaluation script
-│── config/ # Configuration files
-│ ├── config.yaml # Model training parameters
-│── models/ # Directory for saving trained models
-│── notebooks/ # Jupyter Notebook for running experiments
-│ ├── stackoverflow_finetuning.ipynb
-│── README.md # Project documentation
+│── data/			# Data files (train, valid CSVs)
+│── requirements.txt 		# packages to install
+│── src/			# Source code for training and testing
+│ ├── dataset.py 		# Custom PyTorch dataset class
+│ ├── model.py			# BERT model definition
+│ ├── train.py 			# Training script
+│ ├── test.py 			# Evaluation script
+│── config/ 			# Configuration files
+│ ├── config.yaml 		# Model training parameters
+│── models/ 			# Directory for saving trained models
+│── README.md 			# Project documentation
 
 
 Installation & Setup
 
-1. Create and Activate Conda Environment
-conda env create -f environment.yml
-conda activate stackoverflow_bert
+1. Installation
+To install the required dependencies, run the following command:
+pip install -r requirements.txt
 
 2. Download Dataset
 Place the dataset files (stack_overflow_questions_train.csv, stack_overflow_questions_valid.csv, stack_overflow_questions_test.csv) inside the data/ folder.
@@ -53,19 +51,13 @@ batch_size: 16
 epochs: 5
 learning_rate: 2e-5
 
-Saving & Loading the Model
 
-After training, the fine-tuned model is saved in saved_models/:
+After training, the fine-tuned model is saved in models/:
 
-python src/train.py --save_model
-
-To load and test the saved model:
-
-python src/test.py --use_saved_model
 
 
 Author
 Tamali Banerjee
 banerjeetamali6@gmail.com
 GitHub: https://github.com/tamali6
-LinkedIn: https://linkedin.com/in/tamalibanerjee
+LinkedIn: https://www.linkedin.com/in/tamali-banerjee-596001236

@@ -15,6 +15,7 @@ import torch.nn as nn
 from model import BERTClassifier
 from dataset import StackOverflowDataset
 
+
 try:
     # Load config
     print("Loading configuration...")
@@ -35,7 +36,7 @@ except Exception as e:
     raise
 
 
-# Move this to the next step if no errors above
+
 try:
     # Initialize device (GPU or CPU)
     device = torch.device(config["device"])
@@ -63,7 +64,7 @@ except Exception as e:
     raise
 
 
-# Move this to the next step if no errors above
+
 try:
     # Load dataset
     print(f"Loading dataset from {config['data_path'] + config['train_file']}...")
@@ -81,7 +82,7 @@ except Exception as e:
     raise
 
 
-# Move this to the next step if no errors above
+
 try:
     # Create DataLoader
     train_loader = DataLoader(train_dataset, batch_size=config["model"]["batch_size"], shuffle=True)
@@ -96,7 +97,7 @@ except Exception as e:
 
 
 try:
-    # Load model
+    # Load pretrained model
     print(f"Loading model {config['model']['pretrained_model']}...")
     model = BERTClassifier(config["model"]["pretrained_model"], config["model"]["num_labels"]).to(device)
     print("Model loaded successfully.")

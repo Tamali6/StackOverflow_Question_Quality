@@ -11,6 +11,6 @@ model:
   learning_rate: 2e-5
   epochs: 5
 
-output_dir: "./models/bert_finetuned/"
+output_dir: "./models/bert_finetuned_stackoverflow/"
 device: "cuda"  # Change to "cpu" if no GPU
 

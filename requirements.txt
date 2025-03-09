@@ -1,0 +1,8 @@
+python==3.9
+pip
+transformers
+datasets
+scikit-learn
+pandas
+pytorch
+pyyaml
