@@ -2,5 +2,5 @@ transformers
 datasets
 scikit-learn
 pandas
-pytorch
+torch
 pyyaml
