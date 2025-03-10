@@ -1,5 +1,3 @@
-python
-pip
 transformers
 datasets
 scikit-learn
