@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from transformers import BertTokenizer
 from dataset import StackOverflowDataset
 from model import BERTClassifier
-from src.util import load_config
+from util import load_config
 
 def main():
     # Set up argparse to accept the command-line argument for config file

@@ -3,7 +3,7 @@ import yaml
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer, BertForSequenceClassification
 from dataset import StackOverflowDataset
-from src.util import load_config
+from util import load_config
 import pandas as pd
 
 # Load configuration
