@@ -19,6 +19,7 @@ stackoverflow_bert/
 │ ├── model.py			# BERT model definition
 │ ├── train.py 			# Training script
 │ ├── test.py 			# Evaluation script
+│ ├── util.py 			# Util script
 │── config/ 			# Configuration files
 │ ├── config.yaml 		# Model training parameters
 │── models/ 			# Directory for saving trained models
