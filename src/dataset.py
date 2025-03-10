@@ -2,6 +2,7 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset
 from transformers import BertTokenizer
+from sklearn.preprocessing import LabelEncoder
 import os
 
 class StackOverflowDataset(Dataset):
@@ -21,34 +22,30 @@ class StackOverflowDataset(Dataset):
                 raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
             
             # Combine 'Title' and 'Body' to create 'text'
-            self.data['text'] = self.data['Title'] + " " + self.data['Body']
+            self.data['text'] = self.data['Title'].fillna('') + " " + self.data['Body'].fillna('')
             
-            # Ensure there are no missing values in 'Type' column
+            # Ensure there are no missing values in 'Y' column
             if self.data['Y'].isnull().any():
                 raise ValueError("The 'Y' column contains missing values. Please clean the data.")
             
-            # Convert 'Type' to categorical labels
-            self.labels = self.data['Y'].astype('category').cat.codes
-
+            # Convert 'Y' to categorical labels using LabelEncoder
+            self.label_encoder = LabelEncoder()
+            self.labels = self.label_encoder.fit_transform(self.data['Y'])
+            
             # Initialize tokenizer and max length
             self.tokenizer = tokenizer
             self.max_length = max_length
 
         except FileNotFoundError as e:
-            print(f"Error: {e}")
-            raise
+            raise e  # Let the caller handle this
         except pd.errors.EmptyDataError:
-            print(f"Error: The file is empty: {file_path}")
-            raise
+            raise ValueError(f"Error: The file is empty: {file_path}")
         except pd.errors.ParserError:
-            print(f"Error: There was an error parsing the file: {file_path}")
-            raise
+            raise ValueError(f"Error: There was an error parsing the file: {file_path}")
         except ValueError as e:
-            print(f"Error: {e}")
-            raise
+            raise e  # Let the caller handle this
         except Exception as e:
-            print(f"Unexpected error while loading the dataset: {e}")
-            raise
+            raise RuntimeError(f"Unexpected error while loading the dataset: {e}")
 
     def __len__(self):
         return len(self.labels)
@@ -59,7 +56,7 @@ class StackOverflowDataset(Dataset):
             encoding = self.tokenizer(
                 self.data['text'][idx],
                 truncation=True,
-                padding='max_length',
+                padding='max_length',  # Ensure padding to max_length
                 max_length=self.max_length,
                 return_tensors='pt'
             )
@@ -68,9 +65,7 @@ class StackOverflowDataset(Dataset):
             return encoding['input_ids'].squeeze(0), encoding['attention_mask'].squeeze(0), torch.tensor(self.labels[idx])
 
         except KeyError as e:
-            print(f"Error: Missing key during tokenization, {e}")
-            raise
+            raise KeyError(f"Error: Missing key during tokenization: {e}")
         except Exception as e:
-            print(f"Unexpected error during tokenization: {e}")
-            raise
+            raise RuntimeError(f"Unexpected error during tokenization: {e}")
 

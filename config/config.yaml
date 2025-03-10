@@ -10,7 +10,9 @@ model:
   batch_size: 16
   learning_rate: 2e-5
   epochs: 5
+  eval_model: "finetuned" # Write "pretrained" if you want to evaluate the pretrained model
 
 output_dir: "./models/bert_finetuned_stackoverflow/"
+analyse_output: True # Change to False if you dont want to analyse the output
 device: "cuda"  # Change to "cpu" if no GPU
 
